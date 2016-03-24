@@ -1,0 +1,24 @@
+{
+	"name": "armenio/armenio-inflector",
+	"description": "Inflector library",
+	"type": "library",
+	"keywords": [
+		"inflector",
+		"helper",
+		"zf2",
+		"armenio"
+	],
+	"homepage": "https://github.com/armenio/armenio-inflector",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Rafael Armênio",
+			"email": "rafael.armenio@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Aircode\\Inflector\\": "src/"
+		}
+	},
+}
