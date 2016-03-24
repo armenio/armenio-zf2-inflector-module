@@ -18,7 +18,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Aircode\\Inflector\\": "src/"
+			"Armenio\\Inflector\\": "src/"
 		}
 	}
 }

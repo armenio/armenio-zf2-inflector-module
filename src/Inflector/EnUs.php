@@ -1,8 +1,8 @@
 <?php
 // All creditis go to http://book.cakephp.org/2.0/en/core-utility-libraries/inflector.html
-namespace Armenio\Inflector;
+namespace Armenio\Inflector\Inflector;
 
-use Aircode\Inflector;
+use Armenio\Inflector\Inflector;
 
 /**
  * EnUs

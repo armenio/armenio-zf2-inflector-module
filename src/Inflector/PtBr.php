@@ -1,7 +1,7 @@
 <?php 
-namespace Armenio\Inflector;
+namespace Armenio\Inflector\Inflector;
 
-use Aircode\Inflector;
+use Armenio\Inflector\Inflector;
 
 /**
  * PtBr
