@@ -2,20 +2,40 @@
 // All credits go to http://book.cakephp.org/2.0/en/core-utility-libraries/inflector.html
 namespace Armenio\Inflector;
 
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+
 /**
  * Inflector
  * 
  * @author Rafael Armenio <rafael.armenio@gmail.com>
  * @version 1.0
  */
-class Inflector 
+class Inflector implements ServiceLocatorAwareInterface
 {
+    protected $serviceLocator;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
+
+    public function getCoordinates($address)
+	{
+		return self::getCoordinates($address);
+	}
+	
 	/**
 	 * Default map of accented and special characters to ASCII characters
 	 *
 	 * @var array
 	 */
-	protected static $_transliteration = array(
+	protected $transliteration = array(
 		'/ä|æ|ǽ/' => 'ae',
 		'/ö|œ/' => 'oe',
 		'/ü/' => 'ue',
@@ -74,9 +94,9 @@ class Inflector
 	 * @param string
 	 * @return string
 	 **/
-	public static function transliterate($str)
+	public function transliterate($str)
 	{
-		$str = strtr( $str, self::$_transliteration );
+		$str = strtr( $str, $this->transliteration );
 
 		return $str;
 	}
@@ -88,7 +108,7 @@ class Inflector
 	 * @return string Camelized word. LikeThis.
 	 * @access public
 	 */
-	public static function camelize($lowerCaseAndUnderscoredWord) 
+	public function camelize($lowerCaseAndUnderscoredWord) 
 	{
 		$result = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', $lowerCaseAndUnderscoredWord)));
 
@@ -102,7 +122,7 @@ class Inflector
 	 * @return string Underscore-syntaxed version of the $camelCasedWord
 	 * @access public
 	 */
-	public static function underscore($camelCasedWord) 
+	public function underscore($camelCasedWord) 
 	{
 		$result = mb_strtolower(preg_replace('/(?<=\\w)([A-Z])/', '_\\1', $camelCasedWord));
 			
@@ -121,7 +141,7 @@ class Inflector
 	 * @return string
 	 * @access public
 	 */
-	public static function slug($string, $replacement = '-', $case = 'lower', $map = array(), $keep = array()) 
+	public function slug($string, $replacement = '-', $case = 'lower', $map = array(), $keep = array()) 
 	{
 		if ( is_array($replacement) ) {
 			$map = $replacement;
@@ -136,7 +156,7 @@ class Inflector
 			sprintf('/^[%s]+|[%s]+$/', $quotedReplacement, $quotedReplacement) => '',
 		);
 
-		$map = $map + self::$_transliteration + $merge;
+		$map = $map + $this->transliteration + $merge;
 		$slug = preg_replace(array_keys($map), array_values($map), $string);
 		
 		if( $case == 'lower' ){
