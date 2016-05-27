@@ -1,1 +1,1 @@
-# armenio-inflector
+# armenio-zf2-inflector-module
