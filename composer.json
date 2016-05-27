@@ -1,5 +1,5 @@
 {
-	"name": "armenio/armenio-inflector",
+	"name": "armenio/armenio-zf2-inflector-module",
 	"description": "Inflector library",
 	"type": "library",
 	"keywords": [
@@ -8,7 +8,7 @@
 		"zf2",
 		"armenio"
 	],
-	"homepage": "https://github.com/armenio/armenio-inflector",
+	"homepage": "https://github.com/armenio/armenio-zf2-inflector-module",
 	"license": "MIT",
 	"authors": [
 		{
