@@ -2,7 +2,7 @@
 // All creditis go to http://book.cakephp.org/2.0/en/core-utility-libraries/inflector.html
 namespace Armenio\Inflector\Inflector;
 
-use Armenio\Inflector\Inflector\Inflector;
+use Armenio\Inflector\Inflector;
 
 /**
  * EnUs
@@ -19,7 +19,7 @@ class EnUs extends Inflector
 	 *
 	 * @var array
 	 */
-	protected $plural = array(
+	protected static $plural = array(
 		'rules' => array(
 			'/(s)tatus$/i' => '\1\2tatuses',
 			'/(quiz)$/i' => '\1zes',
@@ -86,7 +86,7 @@ class EnUs extends Inflector
 	 *
 	 * @var array
 	 */
-	protected $singular = array(
+	protected static $singular = array(
 		'rules' => array(
 			'/(s)tatuses$/i' => '\1\2tatus',
 			'/^(.*)(menu)s$/i' => '\1\2',
@@ -136,7 +136,7 @@ class EnUs extends Inflector
 	 *
 	 * @var array
 	 */
-	protected $uninflected = array(
+	protected static $uninflected = array(
 		'Amoyese', 'bison', 'Borghese', 'bream', 'breeches', 'britches', 'buffalo', 'cantus',
 		'carp', 'chassis', 'clippers', 'cod', 'coitus', 'Congoese', 'contretemps', 'corps',
 		'debris', 'diabetes', 'djinn', 'eland', 'elk', 'equipment', 'Faroese', 'flounder',
@@ -173,16 +173,15 @@ class EnUs extends Inflector
 	 * @access public
 	 * @return void
 	 */
-	public function rules($type, $rules, $reset = false) 
-	{
+	public static function rules($type, $rules, $reset = false) {
 		$var = '_' . $type;
 
 		switch ($type) {
 			case 'transliteration':
 				if ($reset) {
-					$this->transliteration = $rules;
+					self::$transliteration = $rules;
 				} else {
-					$this->transliteration = $rules + $this->transliteration;
+					self::$transliteration = $rules + self::$transliteration;
 				}
 			break;
 
@@ -190,17 +189,17 @@ class EnUs extends Inflector
 				foreach ($rules as $rule => $pattern) {
 					if (is_array($pattern)) {
 						if ($reset) {
-							$this->{$var}[$rule] = $pattern;
+							self::${$var}[$rule] = $pattern;
 						} else {
-							$this->{$var}[$rule] = array_merge($pattern, $this->{$var}[$rule]);
+							self::${$var}[$rule] = array_merge($pattern, self::${$var}[$rule]);
 						}
-						unset($rules[$rule], $this->{$var}['cache' . ucfirst($rule)]);
-						if (isset($this->{$var}['merged'][$rule])) {
-							unset($this->{$var}['merged'][$rule]);
+						unset($rules[$rule], self::${$var}['cache' . ucfirst($rule)]);
+						if (isset(self::${$var}['merged'][$rule])) {
+							unset(self::${$var}['merged'][$rule]);
 						}
 					}
 				}
-				$this->{$var}['rules'] = array_merge($rules, $this->{$var}['rules']);
+				self::${$var}['rules'] = array_merge($rules, self::${$var}['rules']);
 			break;
 		}
 	}
@@ -213,32 +212,32 @@ class EnUs extends Inflector
 	 * @access public
 	 * @link http://book.cakephp.org/view/1479/Class-methods
 	 */
-	public function pluralize($word) 
+	public static function pluralize($word) 
 	{
 
-		if (!isset($this->plural['merged']['irregular'])) {
-			$this->plural['merged']['irregular'] = $this->plural['irregular'];
+		if (!isset(self::$plural['merged']['irregular'])) {
+			self::$plural['merged']['irregular'] = self::$plural['irregular'];
 		}
 
-		if (!isset($this->plural['merged']['uninflected'])) {
-			$this->plural['merged']['uninflected'] = array_merge($this->plural['uninflected'], $this->uninflected);
+		if (!isset(self::$plural['merged']['uninflected'])) {
+			self::$plural['merged']['uninflected'] = array_merge(self::$plural['uninflected'], self::$uninflected);
 		}
 
-		if (!isset($this->plural['cacheUninflected']) || !isset($this->plural['cacheIrregular'])) {
-			$this->plural['cacheUninflected'] = '(?:' . implode('|', $this->plural['merged']['uninflected']) . ')';
-			$this->plural['cacheIrregular'] = '(?:' . implode('|', array_keys($this->plural['merged']['irregular'])) . ')';
+		if (!isset(self::$plural['cacheUninflected']) || !isset(self::$plural['cacheIrregular'])) {
+			self::$plural['cacheUninflected'] = '(?:' . implode('|', self::$plural['merged']['uninflected']) . ')';
+			self::$plural['cacheIrregular'] = '(?:' . implode('|', array_keys(self::$plural['merged']['irregular'])) . ')';
 		}
 
-		if (preg_match('/(.*)\\b(' . $this->plural['cacheIrregular'] . ')$/i', $word, $regs)) {
-			$result = $regs[1] . substr($word, 0, 1) . substr($this->plural['merged']['irregular'][strtolower($regs[2])], 1);
+		if (preg_match('/(.*)\\b(' . self::$plural['cacheIrregular'] . ')$/i', $word, $regs)) {
+			$result = $regs[1] . substr($word, 0, 1) . substr(self::$plural['merged']['irregular'][strtolower($regs[2])], 1);
 			return $result;
 		}
 
-		if (preg_match('/^(' . $this->plural['cacheUninflected'] . ')$/i', $word, $regs)) {
+		if (preg_match('/^(' . self::$plural['cacheUninflected'] . ')$/i', $word, $regs)) {
 			return $word;
 		}
 
-		foreach ($this->plural['rules'] as $rule => $replacement) {
+		foreach (self::$plural['rules'] as $rule => $replacement) {
 			if (preg_match($rule, $word)) {
 				$result = preg_replace($rule, $replacement, $word);
 				return $result;
@@ -254,38 +253,38 @@ class EnUs extends Inflector
 	 * @access public
 	 * @link http://book.cakephp.org/view/1479/Class-methods
 	 */
-	public function singularize($word) 
+	public static function singularize($word) 
 	{
 
-		if (!isset($this->singular['merged']['uninflected'])) {
-			$this->singular['merged']['uninflected'] = array_merge(
-				$this->singular['uninflected'], 
-				$this->uninflected
+		if (!isset(self::$singular['merged']['uninflected'])) {
+			self::$singular['merged']['uninflected'] = array_merge(
+				self::$singular['uninflected'], 
+				self::$uninflected
 			);
 		}
 
-		if (!isset($this->singular['merged']['irregular'])) {
-			$this->singular['merged']['irregular'] = array_merge(
-				$this->singular['irregular'], 
-				array_flip($this->plural['irregular'])
+		if (!isset(self::$singular['merged']['irregular'])) {
+			self::$singular['merged']['irregular'] = array_merge(
+				self::$singular['irregular'], 
+				array_flip(self::$plural['irregular'])
 			);
 		}
 
-		if (!isset($this->singular['cacheUninflected']) || !isset($this->singular['cacheIrregular'])) {
-			$this->singular['cacheUninflected'] = '(?:' . join( '|', $this->singular['merged']['uninflected']) . ')';
-			$this->singular['cacheIrregular'] = '(?:' . join( '|', array_keys($this->singular['merged']['irregular'])) . ')';
+		if (!isset(self::$singular['cacheUninflected']) || !isset(self::$singular['cacheIrregular'])) {
+			self::$singular['cacheUninflected'] = '(?:' . join( '|', self::$singular['merged']['uninflected']) . ')';
+			self::$singular['cacheIrregular'] = '(?:' . join( '|', array_keys(self::$singular['merged']['irregular'])) . ')';
 		}
 
-		if (preg_match('/(.*)\\b(' . $this->singular['cacheIrregular'] . ')$/i', $word, $regs)) {
-			$result = $regs[1] . substr($word, 0, 1) . substr($this->singular['merged']['irregular'][strtolower($regs[2])], 1);
+		if (preg_match('/(.*)\\b(' . self::$singular['cacheIrregular'] . ')$/i', $word, $regs)) {
+			$result = $regs[1] . substr($word, 0, 1) . substr(self::$singular['merged']['irregular'][strtolower($regs[2])], 1);
 			return $result;
 		}
 
-		if (preg_match('/^(' . $this->singular['cacheUninflected'] . ')$/i', $word, $regs)) {
+		if (preg_match('/^(' . self::$singular['cacheUninflected'] . ')$/i', $word, $regs)) {
 			return $word;
 		}
 
-		foreach ($this->singular['rules'] as $rule => $replacement) {
+		foreach (self::$singular['rules'] as $rule => $replacement) {
 			if (preg_match($rule, $word)) {
 				$result = preg_replace($rule, $replacement, $word);
 				return $result;

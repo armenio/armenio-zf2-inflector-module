@@ -1,7 +1,7 @@
 <?php 
 namespace Armenio\Inflector\Inflector;
 
-use Armenio\Inflector\Inflector\Inflector;
+use Armenio\Inflector\Inflector;
 
 /**
  * PtBr
@@ -18,31 +18,31 @@ class PtBr extends Inflector
 	 *
 	 * @var array
 	 */
-	protected $plural = array(
-		'/(s)$/i'											=> '$1',
-		'/^(paí)s$/i'										=> '$1ses',
-		'/^(pai)s$/i'										=> '$1ses', //
+	protected static $plural = array(
+		'/(s)$/i'										   => '$1',
+		'/^(paí)s$/i'									   => '$1ses',
+		'/^(pai)s$/i'									   => '$1ses', //
 		'/^(japon|escoc|ingl|dinamarqu|fregu|portugu)ês$/i' => '$1eses',
 		'/^(japon|escoc|ingl|dinamarqu|fregu|portugu)es$/i' => '$1eses', //
-		'/^(|g)ás$/i'										=> '$1ases',
-		'/^(|g)as$/i'										=> '$1ases',//
+		'/^(|g)ás$/i'									   => '$1ases',
+		'/^(|g)as$/i'									   => '$1ases',//
 		'/^(irm|m)ão$/i'									=> '$1ãos',
-		'/^(irm|m)ao$/i' 									=> '\1aos',//
-		'/^(alem|c|p)ão$/i'									=> '$1ães',
-		'/^(alem|c|p)ao$/i'									=> '\1aes',//
-		'/(z|r)$/i'											=> '$1es',
+		'/^(irm|m)ao$/i'									=> '\1aos',//
+		'/^(alem|c|p)ão$/i'								 => '$1ães',
+		'/^(alem|c|p)ao$/i'								 => '\1aes',//
+		'/(z|r)$/i'										 => '$1es',
 		'/al$/i'											=> 'ais',
 		'/el$/i'											=> 'eis',
 		'/ol$/i'											=> 'ois',
 		'/ul$/i'											=> 'uis',
-		'/([^aeou])il$/i'									=> '$1is',
-		'/m$/i'												=> 'ns',
+		'/([^aeou])il$/i'								   => '$1is',
+		'/m$/i'											 => 'ns',
 		'/ão$/i'											=> 'ões',
 		'/ao$/i'											=> 'oes',//
 		'/ao$/i'											=> 'oes',
 		//'/^(irm|m)ao$/i'									=> '\1aos',
-		//'/^(alem|c|p)ao$/i'								=> '\1aes',
-		'/$/'												=> 's',
+		//'/^(alem|c|p)ao$/i'								 => '\1aes',
+		'/$/'											   => 's',
 	);
 
 	/**
@@ -50,19 +50,19 @@ class PtBr extends Inflector
 	 *
 	 * @var array
 	 */
-	protected $singular = array(
-		'/^(á|gá|paí)s$/i'									=> '$1s',
-		'/^(a|ga|pai)s$/i'									=> '$1s',//
-		'/^(.*[^s]s)es$/i'									=> '$1',
-		'/^(g|)ases$/i'										=> '$1ás',
+	protected static $singular = array(
+		'/^(á|gá|paí)s$/i'								   => '$1s',
+		'/^(a|ga|pai)s$/i'								   => '$1s',//
+		'/^(.*[^s]s)es$/i'								   => '$1',
+		'/^(g|)ases$/i'									  => '$1ás',
 		'/(r|z)es$/i'										=> '$1',
-		'/([^p])ais$/i'										=> '$1al',
+		'/([^p])ais$/i'									  => '$1al',
 		'/eis$/i'											=> 'el',
 		'/ois$/i'											=> 'ol',
 		'/uis$/i'											=> 'ul',
 		'/(r|t|f|v)is$/i'									=> '$1il',
-		'/ns$/i'											=> 'm',
-		'/sses$/i'											=> 'sse',
+		'/ns$/i'											 => 'm',
+		'/sses$/i'										   => 'sse',
 		'/ães$/i'											=> 'ão',
 		'/aes$/i'											=> 'ao',
 		'/ãos$/i'											=> 'ão',
@@ -79,7 +79,7 @@ class PtBr extends Inflector
 	 *
 	 * @var array
 	 **/
-	 protected $irregular = array(
+	 protected static $irregular = array(
 		'abdomen' => 'abdomens',
 		'alcool' => 'alcoois',
 		'armazem' => 'armazens',
@@ -167,7 +167,7 @@ class PtBr extends Inflector
 	 *
 	 * @var array
 	 */
-	protected $uninflected = array(
+	protected static $uninflected = array(
 		'atlas' => 'atlas',
 		'dezesseis' => 'dezesseis',
 		'dois' => 'dois',
@@ -202,7 +202,7 @@ class PtBr extends Inflector
 	 *
 	 * @var array
 	 **/
-	protected $formatted = array(
+	protected static $formatted = array(
 		'abdomen' => 'abdômen',
 		'alcoois' => 'alcoóis',
 		'alcool' => 'álcool',
@@ -322,30 +322,30 @@ class PtBr extends Inflector
 	 * @param word
 	 * @return word
 	 **/
-	public function pluralize($word)
+	public static function pluralize($word)
 	{
 		$formatted = '';
 
-		$transliterated = mb_strtolower($this->transliterate($word));
+		$transliterated = mb_strtolower(self::transliterate($word));
 
-		if ( ! empty($this->uninflected[$transliterated]) ) {
+		if ( ! empty(self::$uninflected[$transliterated]) ) {
 			$formatted = $word;
 		}
 
 		if( $formatted == '' ){
-			if ( ! empty($this->irregular[$word]) ) {
-				$formatted = $this->irregular[$word];
+			if ( ! empty(self::$irregular[$word]) ) {
+				$formatted = self::$irregular[$word];
 			}
 		}
 
 		if( $formatted == '' ){
-			if ( ! empty($this->irregular[$transliterated]) ) {
-				$formatted = $this->irregular[$transliterated];
+			if ( ! empty(self::$irregular[$transliterated]) ) {
+				$formatted = self::$irregular[$transliterated];
 			}
 		}
 
 		if( $formatted == '' ){
-			foreach ($this->plural as $pattern => $result) {
+			foreach (self::$plural as $pattern => $result) {
 				if (preg_match($pattern, $word)) {
 					$formatted = preg_replace($pattern, $result, $word);
 					break;
@@ -362,8 +362,8 @@ class PtBr extends Inflector
 			$formatted = $word;
 		}
 
-		if( ! empty($this->formatted[$formatted]) ){
-			$formatted = $this->formatted[$formatted];
+		if( ! empty(self::$formatted[$formatted]) ){
+			$formatted = self::$formatted[$formatted];
 		}
 
 		return $formatted;
@@ -375,30 +375,30 @@ class PtBr extends Inflector
 	 * @param word
 	 * @return word
 	 **/
-	public function singularize($word)
+	public static function singularize($word)
 	{
 		$formatted = '';
 
-		$transliterated = mb_strtolower($this->transliterate($word));
+		$transliterated = mb_strtolower(self::transliterate($word));
 
-		if ( ! empty($this->uninflected[$transliterated]) ) {
+		if ( ! empty(self::$uninflected[$transliterated]) ) {
 			$formatted = $word;
 		}
 
 		if( $formatted == '' ){
-			if ( in_array($word, $this->irregular) ) {
-				$formatted = array_search($word, $this->irregular);
+			if ( in_array($word, self::$irregular) ) {
+				$formatted = array_search($word, self::$irregular);
 			}
 		}
 
 		if( $formatted == '' ){
-			if ( in_array($transliterated, $this->irregular) ) {
-				$formatted = array_search($transliterated, $this->irregular);
+			if ( in_array($transliterated, self::$irregular) ) {
+				$formatted = array_search($transliterated, self::$irregular);
 			}
 		}
 
 		if( $formatted == '' ){
-			foreach ($this->singular as $pattern => $result) {
+			foreach (self::$singular as $pattern => $result) {
 				if (preg_match($pattern, $word)) {
 					$formatted = preg_replace($pattern, $result, $word);
 					break;
@@ -415,8 +415,8 @@ class PtBr extends Inflector
 			$formatted = $word;
 		}
 
-		if( ! empty($this->formatted[$formatted]) ){
-			$formatted = $this->formatted[$formatted];
+		if( ! empty(self::$formatted[$formatted]) ){
+			$formatted = self::$formatted[$formatted];
 		}
 
 		return $formatted;
