@@ -1,6 +1,6 @@
 {
 	"name": "armenio/armenio-zf2-inflector-module",
-	"description": "Inflector library",
+	"description": "Inflector Module for Zend Framework 2",
 	"type": "library",
 	"keywords": [
 		"inflector",
