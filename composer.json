@@ -17,11 +17,8 @@
 		}
 	],
 	"autoload": {
-		"psr-0": {
-			"Armenio\\Inflector\\": "src"
-		},
-		"classmap": [
-			"Module.php"
-		]
+		"psr-4": {
+			"Armenio\\Inflector\\": "src/"
+		}
 	}
 }
