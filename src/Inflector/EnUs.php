@@ -19,8 +19,8 @@ class EnUs extends Inflector
 	 *
 	 * @var array
 	 */
-	protected static $plural = array(
-		'rules' => array(
+	protected static $plural = [
+		'rules' => [
 			'/(s)tatus$/i' => '\1\2tatuses',
 			'/(quiz)$/i' => '\1zes',
 			'/^(ox)$/i' => '\1\2en',
@@ -43,11 +43,11 @@ class EnUs extends Inflector
 			'/s$/' => 's',
 			'/^$/' => '',
 			'/$/' => 's',
-		),
-		'uninflected' => array(
+		],
+		'uninflected' => [
 			'.*[nrlm]ese', '.*deer', '.*fish', '.*measles', '.*ois', '.*pox', '.*sheep', 'people'
-		),
-		'irregular' => array(
+		],
+		'irregular' => [
 			'atlas' => 'atlases',
 			'beef' => 'beefs',
 			'brother' => 'brothers',
@@ -78,16 +78,16 @@ class EnUs extends Inflector
 			'testis' => 'testes',
 			'trilby' => 'trilbys',
 			'turf' => 'turfs'
-		)
-	);
+		]
+	];
 
 	/**
 	 * Singular inflector rules
 	 *
 	 * @var array
 	 */
-	protected static $singular = array(
-		'rules' => array(
+	protected static $singular = [
+		'rules' => [
 			'/(s)tatuses$/i' => '\1\2tatus',
 			'/^(.*)(menu)s$/i' => '\1\2',
 			'/(quiz)zes$/i' => '\\1',
@@ -122,21 +122,21 @@ class EnUs extends Inflector
 			'/eaus$/' => 'eau',
 			'/^(.*us)$/' => '\\1',
 			'/s$/i' => ''
-		),
-		'uninflected' => array(
+		],
+		'uninflected' => [
 			'.*[nrlm]ese', '.*deer', '.*fish', '.*measles', '.*ois', '.*pox', '.*sheep', '.*ss'
-		),
-		'irregular' => array(
+		],
+		'irregular' => [
 			'waves' => 'wave'
-		)
-	);
+		]
+	];
 
 	/**
 	 * Words that should not be inflected
 	 *
 	 * @var array
 	 */
-	protected static $uninflected = array(
+	protected static $uninflected = [
 		'Amoyese', 'bison', 'Borghese', 'bream', 'breeches', 'britches', 'buffalo', 'cantus',
 		'carp', 'chassis', 'clippers', 'cod', 'coitus', 'Congoese', 'contretemps', 'corps',
 		'debris', 'diabetes', 'djinn', 'eland', 'elk', 'equipment', 'Faroese', 'flounder',
@@ -149,7 +149,7 @@ class EnUs extends Inflector
 		'sea[- ]bass', 'series', 'Shavese', 'shears', 'siemens', 'species', 'swine', 'testes',
 		'trousers', 'trout','tuna', 'Vermontese', 'Wenchowese', 'whiting', 'wildebeest',
 		'Yengeese'
-	);
+	];
 
 	/**
 	 * Adds custom inflection $rules, of either 'plural', 'singular' or 'transliteration' $type.

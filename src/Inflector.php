@@ -15,7 +15,7 @@ class Inflector
 	 *
 	 * @var array
 	 */
-	protected static $transliteration = array(
+	protected static $transliteration = [
 		'/ä|æ|ǽ/' => 'ae',
 		'/ö|œ/' => 'oe',
 		'/ü/' => 'ue',
@@ -66,7 +66,7 @@ class Inflector
 		'/ĳ/' => 'ij',
 		'/Œ/' => 'OE',
 		'/ƒ/' => 'f'
-	);
+	];
 
 	/**
 	 * Returns a Transliterated word
@@ -90,7 +90,7 @@ class Inflector
 	 */
 	public static function camelize($lowerCaseAndUnderscoredWord) 
 	{
-		$result = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', $lowerCaseAndUnderscoredWord)));
+		$result = str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $lowerCaseAndUnderscoredWord)));
 
 		return $result;
 	}
@@ -121,7 +121,7 @@ class Inflector
 	 * @return string
 	 * @access public
 	 */
-	public static function slug($string, $replacement = '-', $case = 'lower', $map = array(), $keep = array()) 
+	public static function slug($string, $replacement = '-', $case = 'lower', $map = [], $keep = []) 
 	{
 		if ( is_array($replacement) ) {
 			$map = $replacement;
@@ -130,11 +130,11 @@ class Inflector
 		
 		$quotedReplacement = preg_quote($replacement, '/');
 
-		$merge = array(
+		$merge = [
 			sprintf('/[^\s\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}%s]/mu', preg_quote(implode('', $keep), '/')) => ' ',
 			'/\\s+/' => $replacement,
 			sprintf('/^[%s]+|[%s]+$/', $quotedReplacement, $quotedReplacement) => '',
-		);
+		];
 
 		$map = $map + self::$transliteration + $merge;
 		$slug = preg_replace(array_keys($map), array_values($map), $string);

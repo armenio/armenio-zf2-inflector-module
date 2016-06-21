@@ -18,7 +18,7 @@ class PtBr extends Inflector
 	 *
 	 * @var array
 	 */
-	protected static $plural = array(
+	protected static $plural = [
 		'/(s)$/i'										   => '$1',
 		'/^(paí)s$/i'									   => '$1ses',
 		'/^(pai)s$/i'									   => '$1ses', //
@@ -43,14 +43,14 @@ class PtBr extends Inflector
 		//'/^(irm|m)ao$/i'									=> '\1aos',
 		//'/^(alem|c|p)ao$/i'								 => '\1aes',
 		'/$/'											   => 's',
-	);
+	];
 
 	/**
 	 * Singular inflector rules
 	 *
 	 * @var array
 	 */
-	protected static $singular = array(
+	protected static $singular = [
 		'/^(á|gá|paí)s$/i'								   => '$1s',
 		'/^(a|ga|pai)s$/i'								   => '$1s',//
 		'/^(.*[^s]s)es$/i'								   => '$1',
@@ -72,14 +72,14 @@ class PtBr extends Inflector
 		'/(japon|escoc|ingl|dinamarqu|fregu|portugu)eses$/i' => '$1ês',
 		'/([^ê])s$/i'										=> '$1',
 		'/([^e])s$/i'										=> '$1',
-	);
+	];
 
 	/**
 	 * Declare irregular words
 	 *
 	 * @var array
 	 **/
-	 protected static $irregular = array(
+	 protected static $irregular = [
 		'abdomen' => 'abdomens',
 		'alcool' => 'alcoois',
 		'armazem' => 'armazens',
@@ -160,14 +160,14 @@ class PtBr extends Inflector
 		'sotao' => 'sotaos',
 		'tabeliao' => 'tabeliaes',
 		'tunel' => 'tuneis',
-	);
+	];
 
 	/**
 	 * Words that should not be inflected
 	 *
 	 * @var array
 	 */
-	protected static $uninflected = array(
+	protected static $uninflected = [
 		'atlas' => 'atlas',
 		'dezesseis' => 'dezesseis',
 		'dois' => 'dois',
@@ -195,14 +195,14 @@ class PtBr extends Inflector
 		'trezentos' => 'trezentos',
 		'virus' => 'virus',
 		'xerox' => 'xerox',
-	);
+	];
 
 	/**
 	 * Declare formatted words
 	 *
 	 * @var array
 	 **/
-	protected static $formatted = array(
+	protected static $formatted = [
 		'abdomen' => 'abdômen',
 		'alcoois' => 'alcoóis',
 		'alcool' => 'álcool',
@@ -314,7 +314,7 @@ class PtBr extends Inflector
 		'tuneis' => 'túneis',
 		'tunel' => 'túnel',
 		'virus' => 'vírus',
-	);
+	];
 	
 	/**
 	 * Return $word in plural form.
